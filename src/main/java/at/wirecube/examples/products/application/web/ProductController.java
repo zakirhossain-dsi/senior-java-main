@@ -4,6 +4,7 @@ import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.service.ProductService;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import java.util.Objects;
 @Validated
 @ResponseStatus(HttpStatus.OK)
 @RequestMapping("/products")
+@Tag(name = "Product Controller",
+     description = "This controller exposes interfaces to interact with product.")
 public class ProductController {
 
     private final ProductService productService;
