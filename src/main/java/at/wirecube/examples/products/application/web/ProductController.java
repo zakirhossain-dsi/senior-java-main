@@ -22,7 +22,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Validated
 @ResponseStatus(HttpStatus.OK)
-@RequestMapping("/products")
+@RequestMapping("api/v1/products")
 @Tag(name = "Product Controller",
      description = "This controller exposes interfaces to interact with product.")
 public class ProductController {

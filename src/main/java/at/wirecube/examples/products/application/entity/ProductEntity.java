@@ -1,12 +1,15 @@
 package at.wirecube.examples.products.application.entity;
 
 import at.wirecube.examples.products.application.enums.Vat;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCTS")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
 public class ProductEntity {
 
