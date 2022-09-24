@@ -16,8 +16,10 @@ You are required to use the tech stack defined in the `pom.xml`, but you are all
 ## Run locally
 Please follow the following steps to run this application locally:
 <ol>
-  <li>Be sure that you have <code>docker</code> installed on your local machine</li>
+  <li>Be sure that you have <code>docker</code> & <code>maven</code> installed on your local machine</li>
   <li>Change directory to the project directory from the terminal</li>
+  <li>Build project: <code>mvn clean install</code></li>
   <li>Build docker image:  <code>docker build -t senior-java-main:v1 .</code></li>
   <li>Run docker container: <code>docker run -p 8080:8080 --rm senior-java-main:v1</code></li>
+  <li>Go to the following ulr: <a href="http://localhost:8080/swagger-ui/index.html">http://localhost:8080/swagger-ui/index.html</a></li>
 </ol>
