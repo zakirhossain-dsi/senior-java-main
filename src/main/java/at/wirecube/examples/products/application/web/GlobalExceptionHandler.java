@@ -2,7 +2,6 @@ package at.wirecube.examples.products.application.web;
 
 import at.wirecube.examples.products.application.exception.ApiError;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -27,7 +26,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(EntityNotFoundException.class)
   protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
@@ -63,16 +62,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
           MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-    Map<String, String> errors =
-        ex.getAllErrors().stream()
+    List<String> errors = ex
+            .getAllErrors().stream()
             .filter(error -> !StringUtils.isEmpty(error.getDefaultMessage()))
-            .collect(
-                Collectors.toMap(
-                    error -> ((FieldError) error).getField(),
-                    DefaultMessageSourceResolvable::getDefaultMessage,
-                    (existing, replacement) -> existing + " & " + replacement));
+            .map(error -> ((FieldError)error).getField() + " - " + error.getDefaultMessage())
+            .collect(Collectors.toList());
 
-    ApiError apiError = new ApiError(BAD_REQUEST, errors.toString());
+    ApiError apiError = new ApiError(BAD_REQUEST, "Bean validation failed", errors);
     return buildResponseEntity(apiError);
   }
 

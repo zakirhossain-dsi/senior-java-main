@@ -1,5 +1,6 @@
 package at.wirecube.examples.products.application.web;
 
+import static at.wirecube.examples.products.application.constants.ProductApiUrl.*;
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.service.ProductService;
 import at.wirecube.examples.products.application.validation.OnCreate;
@@ -22,7 +23,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Validated
 @ResponseStatus(HttpStatus.OK)
-@RequestMapping("api/v1/products")
+@RequestMapping(BASE)
 @Tag(name = "Product Controller",
      description = "This controller exposes interfaces to interact with product.")
 public class ProductController {
@@ -38,7 +39,7 @@ public class ProductController {
     }
 
     @Validated(OnUpdate.class)
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = PATH_ID, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Product updateProductById(@PathVariable Integer id, @RequestBody @Valid Product product){
 
         if (!Objects.equals(id, product.getId())) {
@@ -50,21 +51,21 @@ public class ProductController {
         return productService.updateProduct(product);
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> deleteProductById(@PathVariable Integer id){
         log.info("Deleting a product with id: {}", id);
         productService.deleteProductById(id);
         return Map.of("message", String.format("Product with id=%s has been deleted successfully.", id));
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public Product getProductById(@PathVariable Integer id){
         log.info("Fetching a product with id: {}", id);
         return productService.getProductById(id);
     }
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> getProductById(){
+    public List<Product> getAllProducts(){
         log.info("Fetching all products");
         return productService.getAllProducts();
     }
