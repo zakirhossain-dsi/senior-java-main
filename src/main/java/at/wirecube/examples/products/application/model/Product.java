@@ -1,6 +1,6 @@
 package at.wirecube.examples.products.application.model;
 
-import at.wirecube.examples.products.application.enums.Vat;
+import at.wirecube.examples.products.application.annotation.StringOptions;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
 import lombok.*;
@@ -8,6 +8,8 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+
+import static at.wirecube.examples.products.application.constants.Vat.*;
 
 @Builder
 @NoArgsConstructor
@@ -28,5 +30,6 @@ public class Product {
 
     private String description;
 
-    private Vat vat;
+    @StringOptions(values = {TEN, EIGHTEEN, TWENTY})
+    private String vat;
 }
