@@ -12,3 +12,12 @@ Your task is to implement a service with the following requirements:
 ## Tech stack
 
 You are required to use the tech stack defined in the `pom.xml`, but you are allowed to add additional dependencies if you think they are necessary.
+
+## Run locally
+Please follow the following steps to run this application locally:
+<ol>
+  <li>Be sure that you have <code>docker</code> installed on your local machine</li>
+  <li>Change directory to the project directory from the terminal</li>
+  <li>Build docker image:  <code>docker build -t senior-java-main:v1 .</code></li>
+  <li>Run docker container: <code>docker run -p 8080:8080 --rm senior-java-main:v1</code></li>
+</ol>
