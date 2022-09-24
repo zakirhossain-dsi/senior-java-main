@@ -1,7 +1,9 @@
 package at.wirecube.examples.products.application.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -14,13 +16,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST)
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/products*", "/api/v1/products/*")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+        http.cors().and()
+            .authorizeRequests()
+            .antMatchers(AUTH_WHITELIST)
+            .permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/products*", "/api/v1/products/*")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .httpBasic();
+
+        http.csrf().disable();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password("{noop}root")
+                .roles("USER");
+
     }
 }
