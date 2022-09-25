@@ -1,6 +1,7 @@
 package at.wirecube.examples.products.application.web;
 
 import at.wirecube.examples.products.application.model.Product;
+import at.wirecube.examples.products.application.model.ProductSearchCriteria;
 import at.wirecube.examples.products.application.service.ProductService;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
@@ -73,8 +74,9 @@ public class ProductController {
 
     @Operation(description = "Fetches all products")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> getAllProducts() {
-        log.info("Fetching all products");
-        return productService.getAllProducts();
+    public List<Product> getAllProducts(@Valid @ModelAttribute ProductSearchCriteria searchCriteria) {
+
+        log.info("Fetching all products by {}", searchCriteria);
+        return productService.getAllProducts(searchCriteria);
     }
 }

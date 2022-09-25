@@ -2,9 +2,12 @@ package at.wirecube.examples.products.application.service;
 
 import at.wirecube.examples.products.application.entity.ProductEntity;
 import at.wirecube.examples.products.application.model.Product;
+import at.wirecube.examples.products.application.model.ProductSearchCriteria;
 import at.wirecube.examples.products.application.repository.ProductRepository;
+import at.wirecube.examples.products.application.utils.AppUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,8 +30,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        Iterable<ProductEntity> productEntities = productRepository.findAll();
+    public List<Product> getAllProducts(ProductSearchCriteria criteria) {
+
+        Page<ProductEntity> productEntities = productRepository.findAll(AppUtils.getPageable(criteria));
         return StreamSupport.stream(productEntities.spliterator(), false)
                 .map(productEntity -> modelMapper.map(productEntity, Product.class))
                 .collect(Collectors.toList());

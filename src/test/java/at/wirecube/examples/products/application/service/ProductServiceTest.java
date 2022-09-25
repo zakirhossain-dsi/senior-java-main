@@ -2,6 +2,7 @@ package at.wirecube.examples.products.application.service;
 
 import at.wirecube.examples.products.application.entity.ProductEntity;
 import at.wirecube.examples.products.application.model.Product;
+import at.wirecube.examples.products.application.model.ProductSearchCriteria;
 import at.wirecube.examples.products.application.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,15 @@ class ProductServiceTest {
 
     @Test
     void testGetProducts() {
-        List<Product> products = productService.getAllProducts();
+
+        ProductSearchCriteria criteria = ProductSearchCriteria.builder()
+                .page(1)
+                .size(10)
+                .sortBy("id")
+                .sortOrder("asc")
+                .build();
+
+        List<Product> products = productService.getAllProducts(criteria);
         assertNotNull(products);
     }
 

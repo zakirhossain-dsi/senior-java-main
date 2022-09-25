@@ -8,6 +8,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -62,13 +64,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-        List<String> errors = ex
-                .getAllErrors().stream()
-                .filter(error -> !StringUtils.isEmpty(error.getDefaultMessage()))
-                .map(error -> ((FieldError) error).getField() + " - " + error.getDefaultMessage())
-                .collect(Collectors.toList());
-
-        ApiError apiError = new ApiError(BAD_REQUEST, "Bean validation failed", errors);
+        ApiError apiError = new ApiError(BAD_REQUEST, "Bean validation failed", parseErrors(ex));
         return buildResponseEntity(apiError);
     }
 
@@ -77,6 +73,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage());
         return buildResponseEntity(apiError);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        ApiError apiError = new ApiError(BAD_REQUEST, "Request parameter validation failed", parseErrors(ex));
+        return buildResponseEntity(apiError);
+    }
+
+    private List<String> parseErrors(Errors errors) {
+        return errors
+                .getAllErrors().stream()
+                .filter(error -> !StringUtils.isEmpty(error.getDefaultMessage()))
+                .map(error -> ((FieldError) error).getField() + " - " + error.getDefaultMessage())
+                .collect(Collectors.toList());
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {

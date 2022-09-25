@@ -94,10 +94,14 @@ class ProductControllerTest {
 
     @Test
     void getAllProducts() throws Exception {
-
-        when(productService.getAllProducts()).thenReturn(List.of(product));
+        when(productService.getAllProducts(any())).thenReturn(List.of(product));
         mockMvc
-                .perform(get(BASE))
+                .perform(get(BASE)
+                        .param("page", "1")
+                        .param("size", "2")
+                        .param("sortBy", "id")
+                        .param("sortOrder", "asc")
+                )
                 .andExpect(status().isOk())
                 .andDo(print());
     }
