@@ -1,6 +1,5 @@
 package at.wirecube.examples.products.application.web;
 
-import static at.wirecube.examples.products.application.constants.ProductApiUrl.*;
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.service.ProductService;
 import at.wirecube.examples.products.application.validation.OnCreate;
@@ -18,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static at.wirecube.examples.products.application.constants.ProductApiUrl.BASE;
+import static at.wirecube.examples.products.application.constants.ProductApiUrl.PATH_ID;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ import java.util.Objects;
 @ResponseStatus(HttpStatus.OK)
 @RequestMapping(BASE)
 @Tag(name = "Product Controller",
-     description = "This controller exposes interfaces to interact with product.")
+        description = "This controller exposes interfaces to interact with product.")
 public class ProductController {
 
     private final ProductService productService;
@@ -33,14 +35,14 @@ public class ProductController {
     @Validated(OnCreate.class)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Product insertProduct(@RequestBody @Valid Product product){
+    public Product insertProduct(@RequestBody @Valid Product product) {
         log.info("Inserting a product.");
         return productService.insertProduct(product);
     }
 
     @Validated(OnUpdate.class)
     @PutMapping(value = PATH_ID, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Product updateProductById(@PathVariable Integer id, @RequestBody @Valid Product product){
+    public Product updateProductById(@PathVariable Integer id, @RequestBody @Valid Product product) {
 
         if (!Objects.equals(id, product.getId())) {
             throw new IllegalArgumentException(
@@ -52,20 +54,20 @@ public class ProductController {
     }
 
     @DeleteMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> deleteProductById(@PathVariable Integer id){
+    public Map<String, String> deleteProductById(@PathVariable Integer id) {
         log.info("Deleting a product with id: {}", id);
         productService.deleteProductById(id);
         return Map.of("message", String.format("Product with id=%s has been deleted successfully.", id));
     }
 
     @GetMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Product getProductById(@PathVariable Integer id){
+    public Product getProductById(@PathVariable Integer id) {
         log.info("Fetching a product with id: {}", id);
         return productService.getProductById(id);
     }
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         log.info("Fetching all products");
         return productService.getAllProducts();
     }

@@ -32,6 +32,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 class ProductControllerTest {
 
+    private final String PRODUCT_ID_ONE = "/1";
+    private final String[] errors = {
+            "price - must not be null",
+            "name - must not be empty",
+            "vat - value should be one of the followings: [10, 18, 20]"
+    };
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -39,12 +45,6 @@ class ProductControllerTest {
     private Product product;
     @Autowired
     private ObjectMapper objectMapper;
-    private final String PRODUCT_ID_ONE = "/1";
-    private final String[] errors = {
-            "price - must not be null",
-            "name - must not be empty",
-            "vat - value should be one of the followings: [10, 18, 20]"
-    };
 
     @Test
     void insertProductWithInvalidData() throws Exception {
@@ -113,7 +113,7 @@ class ProductControllerTest {
     }
 
     @PostConstruct
-    public void setup(){
+    public void setup() {
         product = Product.builder()
                 .name("Samsung mobile")
                 .description("It is a nice mobile")

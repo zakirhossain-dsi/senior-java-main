@@ -1,3 +1,4 @@
 package at.wirecube.examples.products.application.validation;
 
-public interface OnUpdate {}
+public interface OnUpdate {
+}

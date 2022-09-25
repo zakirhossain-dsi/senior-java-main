@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-  @Bean
-  public OpenAPI customOpenAPI() {
-    return new OpenAPI()
-        .components(new Components())
-        .info(new Info().title("Product Management").description("It is a product resource server."));
-  }
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .components(new Components())
+                .info(new Info().title("Product Management").description("It is a product resource server."));
+    }
 }

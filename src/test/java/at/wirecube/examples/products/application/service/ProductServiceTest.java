@@ -32,7 +32,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void testGetProductByIdWhenProductExists(){
+    void testGetProductByIdWhenProductExists() {
         Integer productId = 1;
         productRepository.save(getProductEntity());
         Product product = productService.getProductById(productId);
@@ -40,25 +40,25 @@ class ProductServiceTest {
     }
 
     @Test
-    void testGetProductByIdWhenProduct(){
+    void testGetProductByIdWhenProduct() {
         Integer productId = 1;
         assertThrows(EntityNotFoundException.class, () -> productService.getProductById(productId));
     }
 
     @Test
-    void testGetProducts(){
+    void testGetProducts() {
         List<Product> products = productService.getAllProducts();
         assertNotNull(products);
     }
 
     @Test
-    void testInsertProduct(){
+    void testInsertProduct() {
         Product product = productService.insertProduct(getProduct());
         assertNotNull(product.getId());
     }
 
     @Test
-    void testUpdateProduct(){
+    void testUpdateProduct() {
         var changedProductName = "Apple mobile";
         Product product = productService.insertProduct(getProduct());
         product.setName(changedProductName);
@@ -67,14 +67,14 @@ class ProductServiceTest {
     }
 
     @Test
-    void testDeleteProduct(){
+    void testDeleteProduct() {
         Product product = productService.insertProduct(getProduct());
         productService.deleteProductById(product.getId());
         assertThrows(EntityNotFoundException.class, () -> productService.getProductById(1));
     }
 
 
-    private ProductEntity getProductEntity(){
+    private ProductEntity getProductEntity() {
         return ProductEntity.builder()
                 .id(1)
                 .name("Samsung mobile")
@@ -84,7 +84,7 @@ class ProductServiceTest {
                 .build();
     }
 
-    private Product getProduct(){
+    private Product getProduct() {
         return Product.builder()
                 .name("Samsung mobile")
                 .description("It is a nice mobile")

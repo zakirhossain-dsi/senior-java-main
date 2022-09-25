@@ -17,15 +17,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
-            .authorizeRequests()
-            .antMatchers(AUTH_WHITELIST)
-            .permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/products*", "/api/v1/products/*")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .httpBasic();
+                .authorizeRequests()
+                .antMatchers(AUTH_WHITELIST)
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/products*", "/api/v1/products/*")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
 
         http.csrf().disable();
     }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,26 +14,26 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-  private LocalDateTime timestamp;
-  private HttpStatus status;
-  private String message;
-  private List<String> errors;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    private LocalDateTime timestamp;
+    private HttpStatus status;
+    private String message;
+    private List<String> errors;
 
-  private ApiError() {
-    timestamp = LocalDateTime.now();
-  }
+    private ApiError() {
+        timestamp = LocalDateTime.now();
+    }
 
-  public ApiError(HttpStatus status, String message) {
-    this();
-    this.status = status;
-    this.message = message;
-  }
+    public ApiError(HttpStatus status, String message) {
+        this();
+        this.status = status;
+        this.message = message;
+    }
 
-  public ApiError(HttpStatus status, String message, List<String> errors) {
-    this();
-    this.status = status;
-    this.message = message;
-    this.errors = errors;
-  }
+    public ApiError(HttpStatus status, String message, List<String> errors) {
+        this();
+        this.status = status;
+        this.message = message;
+        this.errors = errors;
+    }
 }
