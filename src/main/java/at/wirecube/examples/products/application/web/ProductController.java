@@ -4,6 +4,7 @@ import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.service.ProductService;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @Operation(description = "Creates a product")
     @Validated(OnCreate.class)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +42,7 @@ public class ProductController {
         return productService.insertProduct(product);
     }
 
+    @Operation(description = "Updates a product by id")
     @Validated(OnUpdate.class)
     @PutMapping(value = PATH_ID, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Product updateProductById(@PathVariable Integer id, @RequestBody @Valid Product product) {
@@ -53,6 +56,7 @@ public class ProductController {
         return productService.updateProduct(product);
     }
 
+    @Operation(description = "Deletes a product by id")
     @DeleteMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> deleteProductById(@PathVariable Integer id) {
         log.info("Deleting a product with id: {}", id);
@@ -60,12 +64,14 @@ public class ProductController {
         return Map.of("message", String.format("Product with id=%s has been deleted successfully.", id));
     }
 
+    @Operation(description = "Fetches a product by id")
     @GetMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public Product getProductById(@PathVariable Integer id) {
         log.info("Fetching a product with id: {}", id);
         return productService.getProductById(id);
     }
 
+    @Operation(description = "Fetches all products")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Product> getAllProducts() {
         log.info("Fetching all products");
