@@ -1,6 +1,7 @@
 package at.wirecube.examples.products.application.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
             "/swagger-resources/**", "/swagger-ui/*", "/v3/api-docs/**", "/webjars/**"
     };
+
+    @Value("${app.user}")
+    private String user;
+
+    @Value("${app.password}")
+    private String password;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,8 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("{noop}root")
+                .withUser(user.trim())
+                .password("{noop}" + password.trim())
                 .roles("USER");
 
     }
