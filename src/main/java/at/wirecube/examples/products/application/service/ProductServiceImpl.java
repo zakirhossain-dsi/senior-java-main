@@ -3,6 +3,7 @@ package at.wirecube.examples.products.application.service;
 import at.wirecube.examples.products.application.entity.ProductEntity;
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.model.ProductSearchCriteria;
+import at.wirecube.examples.products.application.model.SearchResult;
 import at.wirecube.examples.products.application.repository.ProductRepository;
 import at.wirecube.examples.products.application.utils.AppUtils;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -30,12 +30,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts(ProductSearchCriteria criteria) {
+    public SearchResult<Product> getAllProducts(ProductSearchCriteria criteria) {
 
-        Page<ProductEntity> productEntities = productRepository.findAll(AppUtils.getPageable(criteria));
-        return StreamSupport.stream(productEntities.spliterator(), false)
+        Page<ProductEntity> result = productRepository.findAll(AppUtils.getPageable(criteria));
+
+        List<Product> products = result.stream()
                 .map(productEntity -> modelMapper.map(productEntity, Product.class))
                 .collect(Collectors.toList());
+
+        return SearchResult.<Product>builder()
+                .totalElements(result.getTotalElements())
+                .currentElements(products.size())
+                .totalPages(result.getTotalPages())
+                .currentPage(criteria.getPage())
+                .data(products)
+                .build();
     }
 
     @Override

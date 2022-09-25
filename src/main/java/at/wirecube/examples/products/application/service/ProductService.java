@@ -2,8 +2,7 @@ package at.wirecube.examples.products.application.service;
 
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.model.ProductSearchCriteria;
-
-import java.util.List;
+import at.wirecube.examples.products.application.model.SearchResult;
 
 public interface ProductService {
 
@@ -15,5 +14,5 @@ public interface ProductService {
 
     Product getProductById(Integer id);
 
-    List<Product> getAllProducts(ProductSearchCriteria criteria);
+    SearchResult<Product> getAllProducts(ProductSearchCriteria criteria);
 }

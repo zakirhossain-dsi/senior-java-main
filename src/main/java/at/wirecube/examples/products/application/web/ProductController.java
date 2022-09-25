@@ -2,6 +2,7 @@ package at.wirecube.examples.products.application.web;
 
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.model.ProductSearchCriteria;
+import at.wirecube.examples.products.application.model.SearchResult;
 import at.wirecube.examples.products.application.service.ProductService;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
@@ -15,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -74,7 +74,7 @@ public class ProductController {
 
     @Operation(description = "Fetches all products")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> getAllProducts(@Valid @ModelAttribute ProductSearchCriteria searchCriteria) {
+    public SearchResult<Product> getAllProducts(@Valid @ModelAttribute ProductSearchCriteria searchCriteria) {
 
         log.info("Fetching all products by {}", searchCriteria);
         return productService.getAllProducts(searchCriteria);

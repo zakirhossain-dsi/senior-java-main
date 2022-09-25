@@ -3,6 +3,7 @@ package at.wirecube.examples.products.application.service;
 import at.wirecube.examples.products.application.entity.ProductEntity;
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.model.ProductSearchCriteria;
+import at.wirecube.examples.products.application.model.SearchResult;
 import at.wirecube.examples.products.application.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 import static at.wirecube.examples.products.application.constants.Vat.TEN;
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,7 +56,7 @@ class ProductServiceTest {
                 .sortOrder("asc")
                 .build();
 
-        List<Product> products = productService.getAllProducts(criteria);
+        SearchResult<Product> products = productService.getAllProducts(criteria);
         assertNotNull(products);
     }
 

@@ -4,23 +4,25 @@ import at.wirecube.examples.products.application.annotation.StringOptions;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
 public class ProductSearchCriteria {
 
     @Min(1)
-    private Integer page = 1;
+    @NotNull
+    private Integer page;
 
-    @Max(50)
-    private Integer size = 20;
+    @Min(1)
+    @NotNull
+    private Integer size;
 
     @StringOptions(values = {"id", "name", "price", "vat"})
-    private String sortBy = "name";
+    private String sortBy;
 
     @StringOptions(values = {"asc", "ASC", "desc", "DESC"})
-    private String sortOrder = "asc";
+    private String sortOrder;
 
 }

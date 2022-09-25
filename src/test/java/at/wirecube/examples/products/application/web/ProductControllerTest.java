@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 import static at.wirecube.examples.products.application.constants.ProductApiUrl.BASE;
 import static at.wirecube.examples.products.application.constants.Vat.TEN;
@@ -94,7 +93,7 @@ class ProductControllerTest {
 
     @Test
     void getAllProducts() throws Exception {
-        when(productService.getAllProducts(any())).thenReturn(List.of(product));
+        when(productService.getAllProducts(any())).thenReturn(null);
         mockMvc
                 .perform(get(BASE)
                         .param("page", "1")
