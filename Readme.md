@@ -26,11 +26,13 @@ Please follow the following steps to run this application locally:
 
 The <code>create</code>, <code>update</code>, and <code>delete</code> apis are <b>username</b> and <b>password</b> protected. </br>
 When you try to invoke one of these apis, an authentication dialog box will be shown. </br>
-You need to provide the test credentials to the respective fields. Test username and password are given below: 
+You need to provide the test credentials to the respective fields. Test username and password are given below:
 </br></br>
 Username: <b>admin</b>
 </br>
 Password: <b>root</b>
+
+<b>NB:</b> you can change the above username & password from the <code>application.properties</code> file.
 
 Once you are authenticated, you don't need to provide the username and password for the subsequent invocations. </br>
 The browser will append the <code>Authorization</code> header automatically for the subsequent calls.
