@@ -1,5 +1,6 @@
 package at.wirecube.examples.products.application.web;
 
+import at.wirecube.examples.products.application.enums.Vat;
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.annotation.PostConstruct;
 
 import static at.wirecube.examples.products.application.constants.ProductApiUrl.BASE;
-import static at.wirecube.examples.products.application.constants.Vat.TEN;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.isA;
 import static org.mockito.ArgumentMatchers.any;
@@ -121,7 +121,7 @@ class ProductControllerTest {
                 .name("Samsung mobile")
                 .description("It is a nice mobile")
                 .price(10000.0)
-                .vat(TEN)
+                .vat(Vat.TEN)
                 .build();
     }
 

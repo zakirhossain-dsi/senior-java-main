@@ -1,5 +1,6 @@
 package at.wirecube.examples.products.application.entity;
 
+import at.wirecube.examples.products.application.enums.Vat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,5 +27,5 @@ public class ProductEntity {
     private String description;
 
     @Column(columnDefinition = "ENUM('10', '18', '20')")
-    private String vat;
+    private Vat vat;
 }

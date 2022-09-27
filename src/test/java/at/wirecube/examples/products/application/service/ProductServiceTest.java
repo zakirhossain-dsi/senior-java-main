@@ -1,6 +1,7 @@
 package at.wirecube.examples.products.application.service;
 
 import at.wirecube.examples.products.application.entity.ProductEntity;
+import at.wirecube.examples.products.application.enums.Vat;
 import at.wirecube.examples.products.application.model.Product;
 import at.wirecube.examples.products.application.model.ProductSearchCriteria;
 import at.wirecube.examples.products.application.model.SearchResult;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityNotFoundException;
 
-import static at.wirecube.examples.products.application.constants.Vat.TEN;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -89,7 +89,7 @@ class ProductServiceTest {
                 .name("Samsung mobile")
                 .description("It is a nice mobile")
                 .price(10000.0)
-                .vat(TEN)
+                .vat(Vat.TEN)
                 .build();
     }
 
@@ -98,7 +98,7 @@ class ProductServiceTest {
                 .name("Samsung mobile")
                 .description("It is a nice mobile")
                 .price(10000.0)
-                .vat(TEN)
+                .vat(Vat.TEN)
                 .build();
     }
 
