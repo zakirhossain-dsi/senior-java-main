@@ -1,6 +1,7 @@
 package at.wirecube.examples.products.application.service;
 
 import at.wirecube.examples.products.application.entity.ProductEntity;
+import at.wirecube.examples.products.application.enums.SortBy;
 import at.wirecube.examples.products.application.enums.SortOrder;
 import at.wirecube.examples.products.application.enums.Vat;
 import at.wirecube.examples.products.application.model.Product;
@@ -53,7 +54,7 @@ class ProductServiceTest {
         ProductSearchCriteria criteria = ProductSearchCriteria.builder()
                 .page(1)
                 .size(10)
-                .sortBy("id")
+                .sortBy(SortBy.ID)
                 .sortOrder(SortOrder.ASC)
                 .build();
 

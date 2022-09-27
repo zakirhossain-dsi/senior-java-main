@@ -1,5 +1,5 @@
 package at.wirecube.examples.products.application.enums;
 
-public enum ProductSortBy {
+public enum SortBy {
     ID, NAME, PRICE, VAT
 }
