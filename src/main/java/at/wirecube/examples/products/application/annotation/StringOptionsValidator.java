@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class StringOptionsValidator implements ConstraintValidator<StringOptions, String> {
 
-    private static final String ERROR_MESSAGE = "value should be one of the followings: %s";
+    private static final String ERROR_MESSAGE = "must be any of %s";
     private List<String> options;
 
     @Override

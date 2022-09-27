@@ -14,9 +14,9 @@ public class AppUtils {
 
     public static Pageable getPageable(ProductSearchCriteria criteria) {
 
-        Sort sort = Sort.by(criteria.getSortBy().name().toLowerCase());
+        Sort sort = Sort.by(criteria.getSortBy().toLowerCase());
 
-        if (SortOrder.DESC.equals(criteria.getSortOrder())) {
+        if (SortOrder.DESC.name().equals(criteria.getSortOrder())) {
             sort = sort.descending();
         }
 

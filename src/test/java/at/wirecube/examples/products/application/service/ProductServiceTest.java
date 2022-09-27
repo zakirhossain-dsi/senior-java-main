@@ -54,8 +54,8 @@ class ProductServiceTest {
         ProductSearchCriteria criteria = ProductSearchCriteria.builder()
                 .page(1)
                 .size(10)
-                .sortBy(SortBy.ID)
-                .sortOrder(SortOrder.ASC)
+                .sortBy(SortBy.ID.name())
+                .sortOrder(SortOrder.ASC.name())
                 .build();
 
         SearchResult<Product> products = productService.getAllProducts(criteria);
