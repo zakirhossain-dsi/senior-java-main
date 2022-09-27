@@ -1,19 +1,21 @@
 package at.wirecube.examples.products.application.web;
 
 import at.wirecube.examples.products.application.exception.ApiError;
+import at.wirecube.examples.products.application.exception.EnumValidationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -27,7 +29,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -60,6 +62,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(HttpMessageConversionException.class)
+    protected ResponseEntity<Object> handleHttpMessageConversionException(
+            HttpMessageConversionException ex) {
+
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -70,7 +80,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ApiError apiError = new ApiError(BAD_REQUEST, "Malformed JSON request", List.of(ex.getLocalizedMessage()));
+
+        Throwable throwable = ex.getMostSpecificCause();
+        var message = ex.getLocalizedMessage();
+
+        if (throwable instanceof EnumValidationException) {
+            message = throwable.getMessage();
+        }
+
+        ApiError apiError = new ApiError(BAD_REQUEST, "Malformed JSON request", List.of(message));
         return buildResponseEntity(apiError);
     }
 
