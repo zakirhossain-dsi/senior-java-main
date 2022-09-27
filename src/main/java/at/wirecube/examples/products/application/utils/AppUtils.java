@@ -16,7 +16,7 @@ public class AppUtils {
 
         Sort sort = Sort.by(criteria.getSortBy().toLowerCase());
 
-        if (SortOrder.DESC.name().equals(criteria.getSortOrder())) {
+        if (SortOrder.DESC.name().equalsIgnoreCase(criteria.getSortOrder())) {
             sort = sort.descending();
         }
 

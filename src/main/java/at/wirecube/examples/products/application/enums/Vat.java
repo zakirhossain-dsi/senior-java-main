@@ -1,9 +1,8 @@
 package at.wirecube.examples.products.application.enums;
 
 import at.wirecube.examples.products.application.exception.EnumValidationException;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -11,14 +10,7 @@ import java.util.stream.Stream;
 
 @Getter
 public enum Vat {
-    @JsonProperty("10")
-    TEN("10"),
-
-    @JsonProperty("18")
-    EIGHTEEN("18"),
-
-    @JsonProperty("20")
-    TWENTY("20");
+    TEN("10"), EIGHTEEN("18"), TWENTY("20");
 
     private final String value;
 
@@ -26,9 +18,8 @@ public enum Vat {
         this.value = value;
     }
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static Vat create(String source) {
-        if (source.isEmpty()) {
+        if (StringUtils.isEmpty(source)) {
             return null;
         }
 

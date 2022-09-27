@@ -1,6 +1,6 @@
 package at.wirecube.examples.products.application.model;
 
-import at.wirecube.examples.products.application.annotation.EnumValidator;
+import at.wirecube.examples.products.application.annotation.EnumValidation;
 import at.wirecube.examples.products.application.enums.SortBy;
 import at.wirecube.examples.products.application.enums.SortOrder;
 import lombok.AllArgsConstructor;
@@ -20,10 +20,10 @@ public class ProductSearchCriteria {
     @Min(1)
     private Integer size;
 
-    @EnumValidator(enumClass = SortBy.class)
+    @EnumValidation(enumClass = SortBy.class)
     private String sortBy;
 
-    @EnumValidator(enumClass = SortOrder.class)
+    @EnumValidation(enumClass = SortOrder.class)
     private String sortOrder;
 
     public ProductSearchCriteria() {

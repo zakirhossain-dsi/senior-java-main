@@ -1,6 +1,6 @@
 package at.wirecube.examples.products.application.model;
 
-import at.wirecube.examples.products.application.enums.Vat;
+import at.wirecube.examples.products.application.annotation.VatValidation;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
 import lombok.*;
@@ -28,5 +28,6 @@ public class Product {
 
     private String description;
 
-    private Vat vat;
+    @VatValidation
+    private String vat;
 }

@@ -100,7 +100,7 @@ class ProductServiceTest {
                 .name("Samsung mobile")
                 .description("It is a nice mobile")
                 .price(10000.0)
-                .vat(Vat.TEN)
+                .vat(Vat.TEN.getValue())
                 .build();
     }
 

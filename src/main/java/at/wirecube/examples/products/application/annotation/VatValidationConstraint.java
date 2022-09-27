@@ -1,24 +1,24 @@
 package at.wirecube.examples.products.application.annotation;
 
+import at.wirecube.examples.products.application.enums.Vat;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
-public class EnumValidatorConstraint implements ConstraintValidator<EnumValidator, String> {
+public class VatValidationConstraint implements ConstraintValidator<VatValidation, String> {
 
     private static final String ERROR_MESSAGE = "must be any of %s";
     Set<String> values;
 
     @Override
-    public void initialize(EnumValidator constraintAnnotation) {
-        values = Stream.of(constraintAnnotation.enumClass().getEnumConstants())
-                .map(Enum::name)
-                .collect(Collectors.toSet());
+    public void initialize(VatValidation constraintAnnotation) {
+        values = Arrays.stream(Vat.values()).map(Vat::getValue).collect(Collectors.toSet());
     }
 
     @Override
@@ -27,6 +27,6 @@ public class EnumValidatorConstraint implements ConstraintValidator<EnumValidato
         context.buildConstraintViolationWithTemplate(String.format(ERROR_MESSAGE, values))
                 .addConstraintViolation();
 
-        return values.contains(value.toUpperCase());
+        return StringUtils.isEmpty(value) || values.contains(value.toUpperCase());
     }
 }

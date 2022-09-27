@@ -10,8 +10,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({FIELD})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EnumValidatorConstraint.class)
-public @interface EnumValidator {
+@Constraint(validatedBy = EnumValidationConstraint.class)
+public @interface EnumValidation {
 
     Class<? extends Enum<?>> enumClass();
 

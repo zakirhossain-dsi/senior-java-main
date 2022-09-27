@@ -47,7 +47,7 @@ class ProductControllerTest {
     @Test
     void insertProductWithInvalidData() throws Exception {
 
-        var invalidProduct = Product.builder().vat(Vat.TEN).build();
+        var invalidProduct = Product.builder().vat(Vat.TEN.getValue()).build();
         var product = objectMapper.writeValueAsString(invalidProduct);
         mockMvc
                 .perform(
@@ -120,7 +120,7 @@ class ProductControllerTest {
                 .name("Samsung mobile")
                 .description("It is a nice mobile")
                 .price(10000.0)
-                .vat(Vat.TEN)
+                .vat(Vat.TEN.getValue())
                 .build();
     }
 
