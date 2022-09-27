@@ -16,7 +16,7 @@ public enum Vat {
 
     private final String value;
 
-    Vat(String value){
+    Vat(String value) {
         this.value = value;
     }
 }

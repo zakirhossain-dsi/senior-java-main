@@ -24,10 +24,10 @@ public class ProductSearchCriteria {
     @StringOptions(values = {"asc", "ASC", "desc", "DESC"})
     private String sortOrder;
 
-    public ProductSearchCriteria(){
+    public ProductSearchCriteria() {
         this.page = 1;
         this.size = 50;
-        this.sortBy ="name";
+        this.sortBy = "name";
         this.sortOrder = "asc";
     }
 
