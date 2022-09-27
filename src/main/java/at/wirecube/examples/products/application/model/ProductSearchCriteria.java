@@ -1,6 +1,7 @@
 package at.wirecube.examples.products.application.model;
 
 import at.wirecube.examples.products.application.annotation.StringOptions;
+import at.wirecube.examples.products.application.enums.SortOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,14 +22,13 @@ public class ProductSearchCriteria {
     @StringOptions(values = {"id", "name", "price", "vat"})
     private String sortBy;
 
-    @StringOptions(values = {"asc", "ASC", "desc", "DESC"})
-    private String sortOrder;
+    private SortOrder sortOrder;
 
     public ProductSearchCriteria() {
         this.page = 1;
         this.size = 50;
         this.sortBy = "name";
-        this.sortOrder = "asc";
+        this.sortOrder = SortOrder.ASC;
     }
 
 }

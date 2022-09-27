@@ -1,7 +1,6 @@
 package at.wirecube.examples.products.application.web;
 
 import at.wirecube.examples.products.application.exception.ApiError;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -71,8 +70,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        InvalidFormatException invalidFormatException = (InvalidFormatException) ex.getCause();
-        ApiError apiError = new ApiError(BAD_REQUEST, "Malformed JSON request", List.of(invalidFormatException.getOriginalMessage()));
+        ApiError apiError = new ApiError(BAD_REQUEST, "Malformed JSON request", List.of(ex.getLocalizedMessage()));
         return buildResponseEntity(apiError);
     }
 

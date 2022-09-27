@@ -34,8 +34,7 @@ class ProductControllerTest {
     private final String PRODUCT_ID_ONE = "/1";
     private final String[] errors = {
             "price - must not be null",
-            "name - must not be empty",
-            "vat - value should be one of the followings: [10, 18, 20]"
+            "name - must not be empty"
     };
     @Autowired
     private MockMvc mockMvc;
@@ -48,7 +47,7 @@ class ProductControllerTest {
     @Test
     void insertProductWithInvalidData() throws Exception {
 
-        var invalidProduct = Product.builder().build();
+        var invalidProduct = Product.builder().vat(Vat.TEN).build();
         var product = objectMapper.writeValueAsString(invalidProduct);
         mockMvc
                 .perform(
