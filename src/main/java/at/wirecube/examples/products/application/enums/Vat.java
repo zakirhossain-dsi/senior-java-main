@@ -24,8 +24,8 @@ public enum Vat {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static Vat create(String valueStr){
-        if(valueStr.isEmpty()){
+    public static Vat create(String valueStr) {
+        if (valueStr.isEmpty()) {
             return null;
         }
 

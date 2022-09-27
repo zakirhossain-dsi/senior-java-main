@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 
 public class AppUtils {
 
-    private AppUtils(){
+    private AppUtils() {
 
     }
 
