@@ -3,6 +3,8 @@ package at.wirecube.examples.products.application.model;
 import at.wirecube.examples.products.application.annotation.VatValidation;
 import at.wirecube.examples.products.application.validation.OnCreate;
 import at.wirecube.examples.products.application.validation.OnUpdate;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -21,13 +23,18 @@ public class Product {
     private Integer id;
 
     @NotEmpty
+    @Schema(defaultValue = "iPhone", required = true)
+    @JsonView()
     private String name;
 
     @NotNull
+    @Schema(defaultValue = "100", required = true)
     private Double price;
 
+    @Schema(defaultValue = "Powerful. Beautiful. Durable.")
     private String description;
 
     @VatValidation
+    @Schema(defaultValue = "10")
     private String vat;
 }
