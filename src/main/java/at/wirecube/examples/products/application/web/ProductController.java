@@ -21,7 +21,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Map;
 import java.util.Objects;
 
 import static at.wirecube.examples.products.application.constants.ProductApiUrl.BASE;

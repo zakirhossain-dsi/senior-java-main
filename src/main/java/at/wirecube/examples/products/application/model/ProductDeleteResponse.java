@@ -6,22 +6,21 @@ import lombok.Getter;
 @Getter
 public class ProductDeleteResponse {
 
-    private ProductDeleteResponse(){
+    @Schema(example = "1")
+    private Integer productId;
+    @Schema(example = "Product has been deleted successfully.")
+    private String message;
+
+    private ProductDeleteResponse() {
 
     }
 
-    private ProductDeleteResponse(Integer productId, String message){
+    private ProductDeleteResponse(Integer productId, String message) {
         this.productId = productId;
         this.message = message;
     }
 
-    @Schema(example = "1")
-    private Integer productId;
-
-    @Schema(example = "Product has been deleted successfully.")
-    private String message;
-
-    public static ProductDeleteResponse of(Integer productId){
+    public static ProductDeleteResponse of(Integer productId) {
         return new ProductDeleteResponse(productId, "Product has been deleted successfully.");
 
     }
