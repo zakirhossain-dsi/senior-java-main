@@ -25,7 +25,8 @@ public class VatValidationConstraint implements ConstraintValidator<VatValidatio
     public boolean isValid(String value, ConstraintValidatorContext context) {
 
         context.buildConstraintViolationWithTemplate(String.format(ERROR_MESSAGE, values))
-                .addConstraintViolation();
+                .addConstraintViolation()
+                .disableDefaultConstraintViolation();
 
         return StringUtils.isEmpty(value) || values.contains(value.toUpperCase());
     }

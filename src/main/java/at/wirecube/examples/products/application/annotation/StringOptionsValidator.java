@@ -22,13 +22,10 @@ public class StringOptionsValidator implements ConstraintValidator<StringOptions
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
 
-        if (options.contains(value)) {
-            return true;
-        }
-
         context.buildConstraintViolationWithTemplate(String.format(ERROR_MESSAGE, options))
-                .addConstraintViolation();
+                .addConstraintViolation()
+                .disableDefaultConstraintViolation();
 
-        return false;
+        return options.contains(value);
     }
 }

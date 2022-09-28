@@ -25,7 +25,8 @@ public class EnumValidationConstraint implements ConstraintValidator<EnumValidat
     public boolean isValid(String value, ConstraintValidatorContext context) {
 
         context.buildConstraintViolationWithTemplate(String.format(ERROR_MESSAGE, values))
-                .addConstraintViolation();
+                .addConstraintViolation()
+                .disableDefaultConstraintViolation();
 
         return values.contains(value.toUpperCase());
     }
