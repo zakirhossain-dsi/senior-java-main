@@ -36,3 +36,9 @@ Password: <b>root</b>
 
 Once you are authenticated, you don't need to provide the username and password for the subsequent invocations. </br>
 The browser will append the <code>Authorization</code> header automatically for the subsequent calls.
+
+## Docker publish
+<ol>
+<li><code>docker login</code></li>
+<li><code>docker push hellozakir/senior-java-main:v1</code></li>
+</ol>

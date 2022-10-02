@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-management
+  labels:
+    app: product-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-management
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: product-management
+    spec:
+      containers:
+        - name: product-management
+          image: docker.io/hellozakir/product-management:v1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
