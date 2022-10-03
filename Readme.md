@@ -19,8 +19,8 @@ Please follow the following steps to run this application locally:
   <li>Be sure that you have <code>docker</code> & <code>maven</code> installed on your local machine</li>
   <li>Change directory to the project directory from the terminal</li>
   <li>Build project: <code>mvn clean install</code></li>
-  <li>Build docker image:  <code>docker build -t senior-java-main:v1 .</code></li>
-  <li>Run docker container: <code>docker run -p 8080:8080 --rm senior-java-main:v1</code></li>
+  <li>Build docker image:  <code>docker build -t product-management:v1 .</code></li>
+  <li>Run docker container: <code>docker run -p 8080:8080 --rm product-management:v1</code></li>
   <li>Go to the following ulr: <a href="http://localhost:8080/swagger-ui/index.html">http://localhost:8080/swagger-ui/index.html</a></li>
 </ol>
 
@@ -39,6 +39,7 @@ The browser will append the <code>Authorization</code> header automatically for 
 
 ## Docker publish
 <ol>
-<li><code>docker login</code></li>
-<li><code>docker push hellozakir/senior-java-main:v1</code></li>
+<li><code>docker login -u hellozakir</code></li>
+<li><code>docker tag product-management:v1 hellozakir/product-management:v1</code></li>
+<li><code>docker push hellozakir/product-management:v1</code></li>
 </ol>
