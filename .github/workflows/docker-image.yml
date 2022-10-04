@@ -48,6 +48,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: zakirhossain-dsi/project-management-config
+        path: project-management-config
 
     - name: Update manifests
       uses: mikefarah/yq@master
