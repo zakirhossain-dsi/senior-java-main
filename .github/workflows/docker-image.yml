@@ -58,7 +58,8 @@ jobs:
     - name: Print deployment
       run: |
         cd project-management-config
-        git status
+        git commit -am "Updated manifests"
+        git push
 
 
 
