@@ -45,27 +45,25 @@ jobs:
 #        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Checkout project-management-config
-      run: |
-        cd ../../
-        git clone https://github.com/zakirhossain-dsi/project-management-config.git
-
-    - name: Push updated mafests
-      run: |
-        pwd
+      uses: actions/checkout@v3
+      with:
+        repository: zakirhossain-dsi/project-management-config
+        path: project-management-config
+        ref: 'master'
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
     - name: Update manifests
       uses: mikefarah/yq@master
       with:
-        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ steps.prep.outputs.VERSION }}"' ./../../project-management-config/k8s/deployment.yaml
+        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ steps.prep.outputs.VERSION }}"' ./project-management-config/k8s/deployment.yaml
 
     - name: Push updated mafests
       run: |
-        pwd
-#        cd project-management-config
-#        git config --global user.email "zakir@cefalo.com"
-#        git config --global user.name "zakir"
-#        git commit -am "Updated manifests"
-#        git push
+        cd project-management-config
+        git config --global user.email "zakir@cefalo.com"
+        git config --global user.name "zakir"
+        git commit -am "Updated manifests"
+        git push
 
 
 
