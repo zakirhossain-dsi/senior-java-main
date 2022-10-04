@@ -45,10 +45,9 @@ jobs:
 #        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Checkout project-management-config
-      uses: actions/checkout@v3
-      with:
-        repository: zakirhossain-dsi/project-management-config
-        path: project-management-config
+      run: |
+        cd ../../
+        git clone https://github.com/zakirhossain-dsi/senior-java-main.git
 
     - name: Update manifests
       uses: mikefarah/yq@master
@@ -57,11 +56,12 @@ jobs:
 
     - name: Push updated mafests
       run: |
-        cd project-management-config
-        git config --global user.email "zakir@cefalo.com"
-        git config --global user.name "zakir"
-        git commit -am "Updated manifests"
-        git push
+        pwd
+#        cd project-management-config
+#        git config --global user.email "zakir@cefalo.com"
+#        git config --global user.name "zakir"
+#        git commit -am "Updated manifests"
+#        git push
 
 
 
