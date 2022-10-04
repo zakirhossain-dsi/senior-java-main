@@ -25,7 +25,7 @@ jobs:
     - name: Build with maven
       run: mvn --batch-mode --update-snapshots package
 
-    - name: Prepare
+    - name: Prepare app version
       id: prep
       run: |
         VERSION=${GITHUB_SHA::8}
@@ -35,7 +35,7 @@ jobs:
         echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
         echo ::set-output name=VERSION::${VERSION}
 
-    - name: Build and Push Docker Image
+    - name: Build & Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: hellozakir/product-management
@@ -52,19 +52,15 @@ jobs:
         ref: 'master'
         token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
-    - name: Update manifests
+    - name: Update project-management-config
       uses: mikefarah/yq@master
       with:
         cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ steps.prep.outputs.VERSION }}"' ./project-management-config/k8s/deployment.yaml
 
-    - name: Push updated mafests
+    - name: Push project-management-config
       run: |
         cd project-management-config
         git config --global user.email "zakir@cefalo.com"
         git config --global user.name "zakir"
         git commit -am "Updated manifests"
         git push
-
-
-
-
