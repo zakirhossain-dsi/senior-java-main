@@ -56,6 +56,6 @@ jobs:
         cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:v2"' ./project-management-config/k8s/deployment.yaml
 
     - name: Print deployment
-      run: cat /project-management-config/k8s/deployment.yaml
+      run: cat ./project-management-config/k8s/deployment.yaml
 
 
