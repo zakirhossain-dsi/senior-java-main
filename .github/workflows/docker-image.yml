@@ -48,12 +48,11 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: zakirhossain-dsi/project-management-config
-        path: /
 
     - name: Update manifests
       uses: mikefarah/yq@master
       with:
-        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:v2"' /project-management-config/k8s/deployment.yaml
+        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:v2"' ./project-management-config/k8s/deployment.yaml
 
     - name: Print deployment
       run: cat /project-management-config/k8s/deployment.yaml
