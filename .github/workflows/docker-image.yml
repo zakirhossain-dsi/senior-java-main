@@ -55,9 +55,11 @@ jobs:
       with:
         cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ steps.prep.outputs.VERSION }}"' ./project-management-config/k8s/deployment.yaml
 
-    - name: Print deployment
+    - name: Push updated mafests
       run: |
         cd project-management-config
+        git config --global user.email "zakir@cefalo.com"
+        git config --global user.name "zakir"
         git commit -am "Updated manifests"
         git push
 
