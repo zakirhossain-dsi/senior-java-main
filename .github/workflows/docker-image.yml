@@ -44,11 +44,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-  - name: Checkout project-management-config
-    uses: actions/checkout@v3
-    with:
-      repository: zakirhossain-dsi/project-management-config
-      path: /
+    - name: Checkout project-management-config
+      uses: actions/checkout@v3
+      with:
+        repository: zakirhossain-dsi/project-management-config
+        path: /
 
     - name: Update manifests
       uses: mikefarah/yq@master
