@@ -65,5 +65,3 @@ jobs:
         git config --global user.name "zakir"
         git commit -am "Updated manifests"
         git push
-
-
