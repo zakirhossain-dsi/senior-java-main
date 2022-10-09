@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.2.1](https://github.com/zakirhossain-dsi/senior-java-main/compare/v1.2.0...v1.2.1) (2022-10-09)
+
+
+### Bug Fixes
+
+* updated change log ([db20d5f](https://github.com/zakirhossain-dsi/senior-java-main/commit/db20d5f08b1bde6eb176eb4c9efb6206dc1652bd))
+
 # [1.2.0](https://github.com/zakirhossain-dsi/senior-java-main/compare/v1.1.0...v1.2.0) (2022-10-09)
 
 
