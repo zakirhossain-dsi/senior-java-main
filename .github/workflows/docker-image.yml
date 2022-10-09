@@ -50,7 +50,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: hellozakir/product-management
-        tags: latest,v1,${{ steps.prep.outputs.VERSION }}
+        tags: ${{ steps.prep.outputs.VERSION }}
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
