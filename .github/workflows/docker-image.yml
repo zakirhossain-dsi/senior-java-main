@@ -25,7 +25,7 @@ jobs:
     - name: Setup Node.js and semantic-release plugins
       uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 16
       env:
         GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
