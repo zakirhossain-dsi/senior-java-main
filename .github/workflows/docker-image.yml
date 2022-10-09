@@ -67,4 +67,4 @@ jobs:
         git push
 
     - name: Debug
-      run: echo github.event.head_commit.message
+      run: echo $github.event.head_commit.message
