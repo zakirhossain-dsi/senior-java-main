@@ -46,32 +46,32 @@ jobs:
         echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
         echo ::set-output name=VERSION::${VERSION}
 
-    - name: Build & Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: hellozakir/product-management
-        tags: ${{ steps.prep.outputs.VERSION }}
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Checkout project-management-config
-      uses: actions/checkout@v3
-      with:
-        repository: zakirhossain-dsi/project-management-config
-        path: project-management-config
-        ref: 'master'
-        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-
-    - name: Update project-management-config
-      uses: mikefarah/yq@master
-      with:
-        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ steps.prep.outputs.VERSION }}"' ./project-management-config/k8s/deployment.yaml
-
-    - name: Push project-management-config
-      run: |
-        cd project-management-config
-        git config --global user.email "zakir@cefalo.com"
-        git config --global user.name "zakir"
-        git commit -am "Updated manifests"
-        git push
+#    - name: Build & Push Docker Image
+#      uses: mr-smithers-excellent/docker-build-push@v5
+#      with:
+#        image: hellozakir/product-management
+#        tags: ${{ steps.prep.outputs.VERSION }}
+#        registry: docker.io
+#        username: ${{ secrets.DOCKER_USERNAME }}
+#        password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#    - name: Checkout project-management-config
+#      uses: actions/checkout@v3
+#      with:
+#        repository: zakirhossain-dsi/project-management-config
+#        path: project-management-config
+#        ref: 'master'
+#        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+#
+#    - name: Update project-management-config
+#      uses: mikefarah/yq@master
+#      with:
+#        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ steps.prep.outputs.VERSION }}"' ./project-management-config/k8s/deployment.yaml
+#
+#    - name: Push project-management-config
+#      run: |
+#        cd project-management-config
+#        git config --global user.email "zakir@cefalo.com"
+#        git config --global user.name "zakir"
+#        git commit -am "Updated manifests"
+#        git push
