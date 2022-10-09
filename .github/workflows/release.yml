@@ -1,4 +1,4 @@
-name: Releasing product-management
+name: Release product-management
 
 on:
   release:
@@ -8,6 +8,42 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - name: Prepare app version
-      id: prep
-      run: ${{ github.event.release.tag_name }}
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: maven
+
+    - name: Build with maven
+      run: mvn --batch-mode --update-snapshots package
+
+    - name: Build & Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: hellozakir/product-management
+        tags: ${{ github.event.release.tag_name }}
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Checkout project-management-config
+      uses: actions/checkout@v3
+      with:
+        repository: zakirhossain-dsi/project-management-config
+        path: project-management-config
+        ref: 'master'
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+
+    - name: Update project-management-config
+      uses: mikefarah/yq@master
+      with:
+        cmd: yq -i '.spec.template.spec.containers[0].image = "docker.io/hellozakir/product-management:${{ github.event.release.tag_name }}"' ./project-management-config/k8s/deployment.yaml
+
+    - name: Push project-management-config
+      run: |
+        cd project-management-config
+        git config --global user.email "zakir@cefalo.com"
+        git config --global user.name "zakir"
+        git commit -am "Updated manifests"
+        git push
+      
