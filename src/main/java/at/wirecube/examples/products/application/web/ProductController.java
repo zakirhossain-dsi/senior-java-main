@@ -72,7 +72,7 @@ public class ProductController {
         return ProductDeleteResponse.of(id);
     }
 
-    @Operation(description = "Fetches a product by id")
+    @Operation(description = "Fetches a product by id.")
     @GetMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public Product getProductById(@Parameter(in = ParameterIn.PATH, required = true, example = "1") @PathVariable Integer id) {
         log.info("Fetching a product with id: {}", id);
