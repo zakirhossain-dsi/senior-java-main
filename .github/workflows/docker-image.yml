@@ -33,6 +33,8 @@ jobs:
 
     - name: Release
       run: npx semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
     - name: Prepare app version
       id: prep
