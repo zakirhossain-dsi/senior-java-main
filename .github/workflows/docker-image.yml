@@ -23,8 +23,19 @@ jobs:
     - name: Build with maven
       run: mvn --batch-mode --update-snapshots package
 
-    - run: echo "Hello world"
+    - name: Setup Node.js and semantic-release plugins
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
+    - name: Install semantic-release
+      run: npm install -g semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/exec semantic-release/git semantic-release/release-notes-generator
+
+    - name: Release
+      run: npx semantic-release
+      
     - name: Prepare app version
       id: prep
       run: |
