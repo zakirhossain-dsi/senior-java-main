@@ -45,7 +45,7 @@ jobs:
         fi
         echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
         echo ::set-output name=VERSION::${VERSION}
-        echo $1
+        echo ${GITHUB_REF}
 
 #    - name: Build & Push Docker Image
 #      uses: mr-smithers-excellent/docker-build-push@v5
