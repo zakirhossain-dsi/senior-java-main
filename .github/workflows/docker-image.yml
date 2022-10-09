@@ -38,14 +38,14 @@ jobs:
 
     - name: Prepare app version
       id: prep
-      run: |
-        VERSION=${GITHUB_SHA::8}
-        if [[ $GITHUB_REF == refs/tags/* ]]; then
-          VERSION=${GITHUB_REF/refs\/tags\//}
-        fi
-        echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-        echo ::set-output name=VERSION::${VERSION}
-        echo ${{ github.event.release.tag_name }}
+      run: ${{ github.event.release.tag_name }}
+#        VERSION=${GITHUB_SHA::8}
+#        if [[ $GITHUB_REF == refs/tags/* ]]; then
+#          VERSION=${GITHUB_REF/refs\/tags\//}
+#        fi
+#        echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+#        echo ::set-output name=VERSION::${VERSION}
+#        echo ${{ github.event.release.tag_name }}
 
 #    - name: Build & Push Docker Image
 #      uses: mr-smithers-excellent/docker-build-push@v5

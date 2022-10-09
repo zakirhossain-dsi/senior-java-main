@@ -1,0 +1,13 @@
+name: Releasing product-management
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Prepare app version
+      id: prep
+      run: ${{ github.event.release.tag_name }}
