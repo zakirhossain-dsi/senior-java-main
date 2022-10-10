@@ -83,7 +83,7 @@ public class ProductController {
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchResult<Product> getAllProducts(@Valid @ModelAttribute ProductSearchCriteria searchCriteria) {
 
-        log.info("Fetching all products by {}", searchCriteria);
+        log.info("Fetching all products by {}.", searchCriteria);
         return productService.getAllProducts(searchCriteria);
     }
 }
