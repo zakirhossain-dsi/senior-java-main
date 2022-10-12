@@ -1,14 +1,26 @@
 package at.wirecube.examples.products.application.config;
 
 import at.wirecube.examples.products.application.enums.Vat;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Configuration
 public class ApplicationConfig {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Bean
+    public JPAQueryFactory queryFactory() {
+        return new JPAQueryFactory(em);
+    }
 
     @Bean
     public ModelMapper modelMapper() {

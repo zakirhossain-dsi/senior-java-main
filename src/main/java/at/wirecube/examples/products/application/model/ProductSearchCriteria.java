@@ -1,6 +1,7 @@
 package at.wirecube.examples.products.application.model;
 
 import at.wirecube.examples.products.application.annotation.EnumValidation;
+import at.wirecube.examples.products.application.annotation.VatValidation;
 import at.wirecube.examples.products.application.enums.SortBy;
 import at.wirecube.examples.products.application.enums.SortOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,6 +29,12 @@ public class ProductSearchCriteria {
     @Schema(example = "ASC")
     @EnumValidation(enumClass = SortOrder.class)
     private String sortOrder;
+
+    private Double price;
+    private Integer descriptionLength;
+
+    @VatValidation
+    private String vat;
 
     public ProductSearchCriteria() {
         this.page = 1;

@@ -2,12 +2,16 @@ package at.wirecube.examples.products.application.entity;
 
 import at.wirecube.examples.products.application.enums.Vat;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCTS")
 @Builder
+@DynamicUpdate
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
