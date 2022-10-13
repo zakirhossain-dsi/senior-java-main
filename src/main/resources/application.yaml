@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    username: ${datasourceUser:admin}
+    url: ${datasourceUrl:jdbc:h2:mem:productsdb}
+    driverClassName: ${datasourceDriverClass:org.h2.Driver}
+    password: ${datasourcePassword:admin}
+  security:
+    user:
+      name: admin
+      password: root
+  jpa:
+    properties:
+      hibernate:
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: create
+    show-sql: 'true'
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: 'true'
+server:
+  error:
+    include-message: always
+    include-stacktrace: never
