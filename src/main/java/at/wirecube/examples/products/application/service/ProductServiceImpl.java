@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -28,14 +29,14 @@ public class ProductServiceImpl implements ProductService {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Product getProductById(Integer id) {
+    public Product getProductById(@NotNull Integer id) {
         return productRepository.findById(id)
                 .map(productEntity -> modelMapper.map(productEntity, Product.class))
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Product was not found for id=%s", id)));
     }
 
     @Override
-    public SearchResult<Product> getAllProducts(ProductSearchCriteria criteria) {
+    public SearchResult<Product> getAllProducts(@NotNull ProductSearchCriteria criteria) {
 
         QProductEntity queryProduct = QProductEntity.productEntity;
 
@@ -69,21 +70,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product insertProduct(Product product) {
+    public Product insertProduct(@NotNull Product product) {
         ProductEntity productEntity = productRepository.save(modelMapper.map(product, ProductEntity.class));
         product.setId(productEntity.getId());
         return product;
     }
 
     @Override
-    public Product updateProduct(Product product) {
+    public Product updateProduct(@NotNull Product product) {
         getProductById(product.getId());
         productRepository.save(modelMapper.map(product, ProductEntity.class));
         return product;
     }
 
     @Override
-    public void deleteProductById(Integer id) {
+    public void deleteProductById(@NotNull Integer id) {
         getProductById(id);
         productRepository.deleteById(id);
     }

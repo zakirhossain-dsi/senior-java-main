@@ -76,7 +76,7 @@ public class ProductController {
     @GetMapping(value = PATH_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public Product getProductById(@Parameter(in = ParameterIn.PATH, required = true, example = "1") @PathVariable Integer id) {
         log.info("Fetching a product with id: {}", id);
-        return productService.getProductById(id);
+        return productService.getProductById(null);
     }
 
     @Operation(description = "Fetches all products")
