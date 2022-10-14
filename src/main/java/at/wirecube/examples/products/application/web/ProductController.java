@@ -86,4 +86,6 @@ public class ProductController {
         log.info("Fetching all products by {}.", searchCriteria);
         return productService.getAllProducts(searchCriteria);
     }
+
+    
 }
