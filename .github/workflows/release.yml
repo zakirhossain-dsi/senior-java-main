@@ -47,7 +47,3 @@ jobs:
         git config --global user.name "zakir"
         git commit -am "Updated manifests"
         git push
-
-    - name: Helm Chart Update, Package and Push
-      run: |
-        helm version

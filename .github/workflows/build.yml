@@ -25,3 +25,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
       run: npx semantic-release
+
+    - name: Helm Chart Update, Package and Push
+      run: |
+        helm version
